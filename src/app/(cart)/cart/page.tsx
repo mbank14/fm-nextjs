@@ -1,6 +1,7 @@
 'use client'
+import CartList from "@/components/CartList";
 import ProductList from "@/components/ProductList";
-import {handleAddCart} from '@/lib/features/useCartStore'
+import {handleAddCart, handleDecreaseQuantity, handleIncreaseQuantity} from '@/lib/features/useCartStore'
 import { useAppDispatch } from "@/lib/hooks";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
@@ -9,24 +10,34 @@ import { useSelector } from "react-redux";
 
 export default function Cart () {
 
-    const products = useSelector((state: RootState) => state.products)
+    const products = useSelector((state: RootState) => state.products.products)
+    const carts = useSelector((state: RootState) => state.products.carts)
     
     const dispacth = useAppDispatch()
-
-    const addToCart = ({id, nama, gambar, harga, jenis}: {id:number, nama:string,gambar:string,harga:number,jenis:string}) =>{
-        dispacth(handleAddCart({id, nama, gambar, harga, jenis}))
+    const addToCart = async ({id, nama, gambar, harga, jenis, quantity = 1}: {id:number, nama:string,gambar:string,harga:number,jenis:string, quantity:number}) =>{
+        const hasil = await dispacth(handleAddCart({id, nama, gambar, harga, jenis, quantity}))
+        console.log(hasil);
     }
+    const handleDecrease = (num: number) => {
+        dispacth(handleDecreaseQuantity(num))
+    }
+    const handleIncrease = (num: number) => {
+        dispacth(handleIncreaseQuantity(num))
+    }
+
 
     return (
         <div>
             <div className="grid grid-cols-[5fr_2fr] mt-5 px-8">
                 <div>
-                    kelas mamang
-                    <ProductList text="ini teh product" data={products.products} onClick={addToCart}/>
-                    <ProductList text="ini teh cart" data={products.carts} onClick={() => addToCart()}/>
+                    <ProductList text="Dessert" 
+                        data={products} onClick={addToCart}
+                     onDecrease={handleDecrease}
+                     onIncrease={handleIncrease}
+                     />
                 </div>
                 <div>
-                    cart
+                    <CartList items={carts} total={carts.reduce((acc, item) => acc + item.quantity * item.harga, 0)}></CartList>
                 </div>
 
             </div>
