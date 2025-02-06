@@ -6,9 +6,10 @@ interface CartList {
   items: CartItem[];
   total: number;
   onDelete: (id: number) => void;
+  openModal: (item: CartItem[]) => void;
 }
 
-const CartList = ({ items, total, onDelete }: CartList) => {
+const CartList = ({ items, total, onDelete, openModal }: CartList) => {
   return (
     <div className="ml-3">
       <div className="p-6 bg-yellow-100 rounded-lg">
@@ -55,8 +56,16 @@ const CartList = ({ items, total, onDelete }: CartList) => {
               </p>
             </div>
 
-              <div className="p-4 bg-orange-700 mt-4 rounded-lg">
+              <div className="p-4 bg-orange-700 mt-4 rounded-lg text-orange-100 text-center">
                 <p>This is <strong>carbon-neutral</strong> delivery</p>
+              </div>
+
+              <div>
+                <button onClick={() => {
+                    openModal(items) 
+                    console.log('object')
+                }}
+                className="bg-orange-400 hover:bg-orange-200 w-full mt-5 rounded-full py-3 text-orange-900">Confirm Order</button>
               </div>
 
           </div>

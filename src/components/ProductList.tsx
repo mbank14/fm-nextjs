@@ -1,11 +1,13 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatPrice } from "@/lib/utils/fromatPrice";
+import { CartItem } from '@/types/typeCart'
 
 interface IProductList {
   text: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any[];
+  carts:  CartItem[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick: (product: any[]) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,6 +19,7 @@ interface IProductList {
 const ProductList = ({
   text,
   data,
+  carts,
   onClick,
   onDecrease,
   onIncrease,
@@ -25,7 +28,19 @@ const ProductList = ({
   const [buttonActive, setButtonActive] = useState<{ [key: number]: boolean }>(
     {}
   );
-  const [qty, setQty] = useState<{ [key: number]: number }>({});
+//   const [qty, setQty] = useState<{ [key: number]: number }>({});
+
+const amountQty = (id: number) => {
+        const cartItems = carts.find((item: CartItem) => item.id === id);
+        return cartItems ? cartItems.quantity : 0;
+}
+useEffect(() => {
+    data.forEach(item => {
+        if (amountQty(item.id) < 1) {
+            setButtonActive(prev => ({ ...prev, [item.id]: false }));
+        }
+    });
+}, [carts, data]);
 
   return (
     <div>
@@ -43,7 +58,7 @@ const ProductList = ({
               alt="gambar produk"
             />
 
-            {item.quantity && <p>{item.quantity}</p>}
+            {/* {quantity[item.id] && <p>{item.quantity}</p>} */}
             {/* btn */}
             <div id="btnWrapper" className="relative inline-block w-full h-0">
               <div
@@ -51,16 +66,16 @@ const ProductList = ({
                     rounded-full text-center  absolute transform -translate-y-1/2 -translate-x-1/2 left-1/2 -top-4 w-2/3
               border border-orange-400`}
               >
-                {!buttonActive[item.id] ? (
+                {!buttonActive[item.id]  ? (
                   <button
                   className="inline-block w-full px-4 py-3"
                     onClick={() => {
                       onClick(item);
 
-                      setQty((prevQty) => ({
-                        ...prevQty,
-                        [item.id]: (prevQty[item.id] || 0) + 1,
-                      }));
+                    //   setQty((prevQty) => ({
+                    //     ...prevQty,
+                    //     [item.id]: (prevQty[item.id] || 0) + 1,
+                    //   }));
 
                       setButtonActive((prev) => ({
                         ...prev,
@@ -89,41 +104,22 @@ const ProductList = ({
                     <button
                       onClick={() => {
                         onDecrease(item.id);
-                        setQty((prevQty) => {
-                          const newQty = Math.max(
-                            (prevQty[item.id] || 0) - 1,
-                            0
-                          );
-                          if (newQty === 0) {
-                            setButtonActive((prev) => ({
-                              ...prev,
-                              [item.id]: false,
-                            }));
-                          }
-                          return {
-                            ...prevQty,
-                            [item.id]: newQty,
-                          };
-                        });
-
-                        // setLoading((prev) => ({
-                        //   ...prev,
-                        //   [item.id]: true,
-                        // }));
-                        // setQty(prevQty => prevQty -= 1)
+                     
+                        if (amountQty(item.id) === 0) return setButtonActive((prev) => ({ ...prev, [item.id]: false }));
+                            
                       }}
                     >
                       -
                     </button>
-                    <p>{qty[item.id] || 0}</p>
+                    <p>{amountQty(item.id)}</p>
                     <button
                       onClick={() => {
                         onIncrease(item.id);
                         // Meningkatkan kuantitas produk
-                        setQty((prevQty) => ({
-                          ...prevQty,
-                          [item.id]: (prevQty[item.id] || 0) + 1, // Tambah 1 ke kuantitas
-                        }));
+                        // setQty((prevQty) => ({
+                        //   ...prevQty,
+                        //   [item.id]: (prevQty[item.id] || 0) + 1, // Tambah 1 ke kuantitas
+                        // }));
                       }}
                     >
                       +
