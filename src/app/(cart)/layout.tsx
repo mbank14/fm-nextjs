@@ -16,7 +16,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <h1 className="text-xl font-bold text-center mb-4"> hhohoho</h1>
         <StoreProvider >
             {children}
         </StoreProvider>
