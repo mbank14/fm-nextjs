@@ -1,4 +1,20 @@
+"use client"
+import { useState } from "react";
+import {formatPrice} from '@/lib/utils/fromatPrice'
+
 const TipCalc = () => {
+    const [tip, setTip] = useState<number>(142.55)
+    const [numberPpl, setNumberPpl] = useState<number>(5)
+    const [percentTip, setPercentTip] = useState<number>(0.15)
+
+    const tipAmount = () =>{
+        return tip * percentTip / numberPpl
+    }
+
+    const totalAmoutn =() =>{
+        return (tip + tipAmount() * 5 )/ 5
+    }
+
   return (
     <div>
       <div className="text-center">
@@ -104,20 +120,21 @@ const TipCalc = () => {
           </form>
         </div>
 
-        <div className="bg-emerald-900 p-3 rounded-xl">
+        <div className="bg-emerald-900 p-5 rounded-xl mt-7">
           <div>
             <div className="mb-4 flex flex-row justify-between text-white items-center">
-              <h2 className="font-bold text-lg">Tip Amount <br></br> <span className="text-sm text-slate-400">/ Person</span></h2>
-              <p className="text-2xl font-bold text-emerald-300"> $0.00</p>
+              <h2 className="font-bold ">Tip Amount <br></br> <span className="text-sm text-slate-400">/ Person</span></h2>
+              <p className="text-2xl font-bold text-emerald-300"> {formatPrice(tipAmount(),'us')}</p>
             </div>
             <div className="flex flex-row justify-between text-white items-center">
-              <h2 className="font-bold text-lg">Total <br></br> <span className="text-sm text-slate-400">/ Person</span></h2>
-              <p className="text-2xl font-bold text-emerald-300"> $0.00</p>
+              <h2 className="font-bold ">Total <br></br> <span className="text-sm text-slate-400">/ Person</span></h2>
+              <p className="text-2xl font-bold text-emerald-300"> {formatPrice(totalAmoutn(), 'us')}</p>
             </div>
           </div>
 
           <div>
-            <button className="bg-emerald-300 text-emerald-800 font-bold text-center py-3 block w-full mt-5 rounded-xl">RESET</button>
+            <button     
+            className="bg-emerald-300 text-emerald-800 font-bold text-center py-3 block w-full mt-5 rounded-xl">RESET</button>
           </div>
         </div>
 
