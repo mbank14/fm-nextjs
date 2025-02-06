@@ -27,7 +27,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <h1 className="text-xl font-bold text-center mb-4"> komodo</h1>
+        <h1 className="text-xl font-bold text-center mb-4"> Frontend Mentor Challenge using Nextjs</h1>
         {children}
       </body>
     </html>

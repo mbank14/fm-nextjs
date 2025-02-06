@@ -45,7 +45,7 @@ useEffect(() => {
   return (
     <div>
       <h1 className="font-bold text-3xl mb-3">{text}</h1>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid sm:grid-cols-3 grid-cols-1  gap-3">
         {data.map((item) => (
           <div key={item.id}>
             <Image

@@ -60,7 +60,7 @@ export default function Cart() {
 
   return (
     <div>
-      <div className="grid grid-cols-[5fr_2fr] mt-5 px-8">
+      <div className="grid lg:grid-cols-[5fr_2fr] sm:grid-cols-1 mt-5 px-8">
         <div>
           <ProductList
             text="Dessert"

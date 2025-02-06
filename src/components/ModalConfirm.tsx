@@ -11,7 +11,7 @@ interface IModal {
 const ModalConfirm = ({ items, onClose, onConfirm }: IModal) => {
   return (
     <div className="w-full h-screen fixed bg-slate-500/20 flex justify-center items-center z-20 top-0 left-0 right-0 bottom-0 overflow-hidden">
-      <div className="py-4 px-5 bg-slate-50 min-w-96 rounded-xl">
+      <div className="py-4 px-5 bg-slate-50 sm:min-w-96 w-full rounded-xl">
         <div className="flex flex-row justify-between items-center mb-4">
           <Image
             src={`/images/icon-order-confirmed.svg`}

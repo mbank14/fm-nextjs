@@ -11,7 +11,7 @@ interface CartList {
 
 const CartList = ({ items, total, onDelete, openModal }: CartList) => {
   return (
-    <div className="ml-3">
+    <div className="lg:ml-3 lg:mt-0 mt-8">
       <div className="p-6 bg-yellow-100 rounded-lg">
         <p className="font-bold text-xl text-orange-400">
           Your Cart ({items.length})
