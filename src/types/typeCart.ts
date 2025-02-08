@@ -2,6 +2,7 @@ export interface CartItem {
     id: number;
     gambar: string;
     nama: string;
+    jenis:string;
     harga: number;
     quantity: number;
 }

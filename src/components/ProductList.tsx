@@ -9,11 +9,11 @@ interface IProductList {
   data: any[];
   carts:  CartItem[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick: (product: any[]) => void;
+  onClick: (product: CartItem) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onDecrease: (product: any[]) => void;
+  onDecrease: (product: number) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onIncrease: (product: any[]) => void;
+  onIncrease: (product: number) => void;
 }
 
 const ProductList = ({
