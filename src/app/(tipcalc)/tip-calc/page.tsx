@@ -3,12 +3,13 @@ import { ChangeEvent, useState } from "react";
 import { formatPrice } from "@/lib/utils/fromatPrice";
 
 const TipCalc = () => {
+ const [customPercentage, setCustomPercentage] = useState<number | string>('');
   const [tip, setTip] = useState<number>(142.55);
   const [numberPpl, setNumberPpl] = useState<number>(5);
-  const [percentTip, setPercentTip] = useState<number>(0.15);
+  const [percentTip, setPercentTip] = useState<number | string>(0.15);
 
   const tipAmount = () => {
-    return (tip * percentTip) / numberPpl;
+    return (tip * Number(percentTip)) / numberPpl;
   };
 
   const totalAmoutn = () => {
@@ -16,8 +17,20 @@ const TipCalc = () => {
   };
 
   const handleRadio = (e: ChangeEvent<HTMLInputElement>) => {
-    setPercentTip(Number(e.target.value) / 100);
+    const val = e.target.value
+    if(val !== 'custom' ){
+    }
+    setCustomPercentage('')
+    setPercentTip(Number(e.target.value));
+    console.log(val);
   };
+
+  const handleCustomPercentage = (e: ChangeEvent<HTMLInputElement>) =>{
+
+    setCustomPercentage(Number(e.target.value))
+    setPercentTip(Number(e.target.value)/100)
+    console.log(customPercentage == percentTip);
+  }
   return (
     <div>
       <div className="text-center">
@@ -67,18 +80,19 @@ const TipCalc = () => {
                     type="radio"
                     id="tip5"
                     name="tipPercentage"
-                    value="5"
-                    defaultChecked
+                    value={0.05}
+                    checked={percentTip == 0.05 && customPercentage == ''}
                   />
                   <label htmlFor="tip5">5%</label>
                 </div>
 
                 <div>
                   <input
+                    checked={percentTip == 0.10 && customPercentage == ''}
                     type="radio"
                     id="tip10"
                     name="tipPercentage"
-                    value="10"
+                    value={0.10}
                     onChange={handleRadio}
                   />
                   <label htmlFor="tip10">10%</label>
@@ -86,48 +100,51 @@ const TipCalc = () => {
 
                 <div>
                   <input
+                  checked={percentTip == 0.15 && customPercentage == ''}
                     onChange={handleRadio}
                     type="radio"
                     id="tip15"
                     name="tipPercentage"
-                    value="15"
+                    value={0.15}
                   />
                   <label htmlFor="tip15">15%</label>
                 </div>
 
                 <div>
                   <input
+                  checked={percentTip == 0.20 && customPercentage == ''}
                     onChange={handleRadio}
                     type="radio"
                     id="tip20"
                     name="tipPercentage"
-                    value="20"
+                    value={0.20}
                   />
                   <label htmlFor="tip20">20%</label>
                 </div>
 
                 <div>
                   <input
+                  checked={percentTip == 0.25 && customPercentage == ''}
                     onChange={handleRadio}
                     type="radio"
                     id="tip25"
                     name="tipPercentage"
-                    value="25"
+                    value={0.25}
                   />
                   <label htmlFor="tip25">25%</label>
                 </div>
 
                 <div>
-                  <input
-                    onChange={handleRadio}
-                    type="radio"
-                    id="tipCustom"
-                    name="tipPercentage"
-                    value="custom"
-                  />
-                  <label htmlFor="tipCustom" style={{ backgroundColor: "gray" }}>
-                    Custom
-                  </label>
+
+                    <input 
+                        placeholder="Custom"
+                        type="number" 
+                        name="tipPercentage" 
+                        id="inputPercentage" 
+                        value={customPercentage}
+                        onChange={handleCustomPercentage}
+                     />
+
                 </div>
               </div>
 
@@ -156,6 +173,12 @@ const TipCalc = () => {
                     e.target.value =  value.toString()
                     setNumberPpl(value);
                   }}
+                  onFocus={(e) =>
+                    e.target.parentElement?.classList.add("outline-input")
+                  }
+                  onBlur={(e) =>
+                    e.target.parentElement?.classList.remove("outline-input")
+                  }
                   type="number"
                   id="numberPpl"
                   name="numberPpl"
@@ -191,7 +214,12 @@ const TipCalc = () => {
           </div>
 
           <div>
-            <button className="bg-emerald-300 text-emerald-800 font-bold text-center py-3 block w-full mt-5 rounded-xl">
+            <button onClick={() => {
+                setTip(1)
+                setNumberPpl(1)
+                setPercentTip(0.05)
+            }}
+             className="bg-emerald-300 text-emerald-800 font-bold text-center py-3 block w-full mt-5 rounded-xl">
               RESET
             </button>
           </div>
