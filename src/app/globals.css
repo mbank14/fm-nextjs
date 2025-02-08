@@ -40,4 +40,11 @@ input[type="number"]{
   -webkit-text-fill-color: unset;
 }
 
-
+@layer utilities{
+  .input-percentage > div > input{
+    @apply appearance-none hidden
+  }
+  .input-percentage > div > label{
+    @apply rounded-lg text-center w-full py-3 inline-block
+  }
+}
