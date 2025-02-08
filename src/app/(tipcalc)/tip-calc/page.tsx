@@ -32,12 +32,13 @@ const TipCalc = () => {
     console.log(customPercentage == percentTip);
   };
   return (
-    <div className="bg-teal-50">
-      <div className="text-center h-60 flex items-center justify-center">
+    <div className="bg-teal-50 sm:h-screen sm:flex sm:justify-center sm:flex-col sm:items-center">
+      <div className="text-center h-60 sm:h-28 flex items-center justify-center">
         <h1 className="font-bold tracking-wider line-clamp-2">SPLITTER</h1>
       </div>
 
-      <div className="p-5 bg-white rounded-t-2xl">
+      <div className="p-5 bg-white rounded-t-2xl 
+        sm:w-2/3 sm:grid sm:grid-cols-[2fr_1fr] sm:gap-7 sm:justify-center sm:items-center">
         <div>
           <form action="">
             <div className="mb-4">
@@ -71,7 +72,7 @@ const TipCalc = () => {
 
             <div className="mb-4">
               <label>Select tip %</label>
-              <div className="grid grid-cols-2 gap-2 input-percentage">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 input-percentage">
                 <div>
                   <input
                     onChange={handleRadio}
@@ -177,8 +178,10 @@ const TipCalc = () => {
                   </label>
                 </div>
 
+
                 
                   <input
+                    className="!bg-slate-200 rounded-lg px-3 !focus-visible:outline-emerald-300"
                     placeholder="Custom"
                     type="number"
                     name="tipPercentage"
@@ -186,19 +189,19 @@ const TipCalc = () => {
                     value={customPercentage}
                     onChange={handleCustomPercentage}
                   />
-
               </div>
 
-              <input
+              {/* <input
+                className="!fill-slate-700 !bg-slate-800"
                 type="number"
                 id="customTip"
                 name="customTip"
                 style={{ display: "none", textAlign: "right" }}
                 placeholder="Enter custom tip %"
-              />
+              /> */}
             </div>
 
-            <div>
+            <div className="h-fi">
               <label htmlFor="numberPpl">Number People</label>
               <div
                 className="w-full px-2 py-3 bg-slate-200 rounded-lg bill-input"
@@ -230,7 +233,7 @@ const TipCalc = () => {
           </form>
         </div>
 
-        <div className="bg-emerald-900 p-5 rounded-xl mt-7">
+        <div className="bg-emerald-900 p-5 rounded-xl mt-7 h-full sm:flex sm:flex-col sm:justify-between">
           <div>
             <div className="mb-4 flex flex-row justify-between text-white items-center">
               <h2 className="font-bold ">
