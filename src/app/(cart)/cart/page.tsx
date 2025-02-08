@@ -38,17 +38,20 @@ export default function Cart() {
     jenis: string;
     quantity: number;
   }) => {
-    const hasil = await dispacth(
-      handleAddCart({ id, nama, gambar, harga, jenis, quantity })
+    const hasil = dispacth(
+      handleAddCart({ id, nama, gambar, jenis,harga, quantity })
     );
     console.log(hasil);
   };
+
   const handleDecrease = (num: number) => {
     dispacth(handleDecreaseQuantity(num));
   };
+
   const handleIncrease = (num: number) => {
     dispacth(handleIncreaseQuantity(num));
   };
+
   const handleDeleteCartItem = (id: number) => {
     dispacth(handleRemoveItemCart(id));
   };
