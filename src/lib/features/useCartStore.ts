@@ -15,6 +15,7 @@ interface ICartItem {
     id: number;
     gambar: string;
     nama: string;
+    jenis:string;
     harga: number;
     quantity: number;
 }
